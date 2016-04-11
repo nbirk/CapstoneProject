@@ -422,6 +422,23 @@ myApp.controller('switchController', ['$scope', '$rootScope', function ($scope, 
         //building series data will go here
         var ingressByteData = [];
         var egressByteData = [];
+		
+		//Gabie 
+		var ingressMulticastData = [];
+		var egressMulticastData = [];
+		//Gabie Errors
+		var ingressPauseData = [];
+		var ingressUndersizeData = [];
+		var ingressFragmentsData = [];
+		var ingressOversizeData = [];
+		var ingressJabberData = [];
+		var ingressRxErrData = [];
+		var ingressFcsErrData = [];
+		
+		var egressPauseData = [];
+		var egressExcessiveData = [];
+		var egressCollisionsData = [];
+		var egressOtherData = [];
 
         //move this logic into core library?
         for (var i = 1; i < messageCount - 1; i++) {
@@ -429,14 +446,88 @@ myApp.controller('switchController', ['$scope', '$rootScope', function ($scope, 
 
             var ingressByteTotal = 0;
             var egressByteTotal = 0;
-
+			
+			//Gabie
+			var ingressMulticastTotal = 0;
+			var egressMulticastTotal = 0;
+			//Gabie Errors
+	/*		var ingressPauseTotal = 0;
+			var ingressUndersizeTotal = 0;
+			var ingressFragmentsTotal = 0;
+			var ingressOversizeTotal = 0;
+			var ingressJabberTotal = 0;
+			var ingressRxErrTotal = 0;
+			var ingressFcsErrTotal = 0;
+			
+			var egressPauseTotal = 0;
+			var egressExcessiveTotal = 0;
+			var egressCollisionsTotal = 0;
+			var egressOtherTotal = 0;
+*/
 
             for (var j = 0; j < dataItems.length - 1; j++) {
                 ingressByteTotal += parseInt(dataItems[j].IngressBytes);
                 egressByteTotal += parseInt(dataItems[j].EgressBytes);
+				
+				//Gabie
+				ingressMulticastTotal += parseInt(dataItems[j].IngressMulticast);
+				egressMulticastTotal += parseInt(dataItems[j].EgressMulticast);
+				//Gabie Errors
+			/*	if(parseInt(dataItems[j].IngressPause) > 0){
+					ingressPauseTotal += 1;
+				}
+				if(parseInt(dataItems[j].IngressUndersize) > 0){
+					ingressUndersizeTotal =+ 1;
+				}
+				if(parseInt(dataItems[j].IngressFragments) > 0){
+					ingressFragmentsTotal += 1;
+				}
+				if(parseInt(dataItems[j].IngressOversize) > 0){
+					ingressOversizeTotal += 1;
+				}
+				if(parseInt(dataItems[j].IngressJabber) > 0){
+					ingressJabberTotal += 1;
+				}
+				if(parseInt(dataItems[j].IngressRxErr) > 0){
+					ingressRxErrTotal += 1;
+				}
+				if(parseInt(dataItems[j].IngressFscErr) > 0){
+					ingressFcsErrTotal += 1;
+				}
+				if(parseInt(dataItems[j].EgressPause) > 0){
+					egressPauseTotal += 1;
+				}
+				if(parseInt(dataItems[j].EgressExcessive) > 0){
+					egressExcessiveTotal += 1;
+				}
+				if(parseInt(dataItems[j].EgressCollisions) > 0){
+					egressCollisionsTotal += 1;
+				}
+				if(parseInt(dataItems[j].EgressOther) > 0){
+					egressOtherTotal += 1;
+				}*/
             }
             ingressByteData.push(ingressByteTotal);
             egressByteData.push(egressByteTotal);
+		
+			
+			//Gabie
+			ingressMulticastData.push(ingressMulticastTotal);
+			egressMulticastData.push(egressMulticastTotal);
+			
+			/*ingressPauseData.push(ingressPauseTotal);
+			ingressUndersizeData.push(ingressUndersizeTotal);
+			ingressFragmentsData.push(ingressFragmentsTotal);
+			ingressOversizeData.push(ingressOversizeTotal);
+			ingressJabberData.push(ingressJabberTotal);
+			ingressRxErrData.push(ingressRxErrTotal);
+			ingresFcsErrData.push(ingressFcsErrTotal);
+			
+			egressPauseData.push(egressPauseTotal);
+			egressExcessiveData.push(egressExcessiveTotal);
+			egressCollisionsData.push(egressCollisionsTotal);
+			egressOtherData.push(egressOtherTotal);
+		*/
 
         }
 
@@ -448,7 +539,51 @@ myApp.controller('switchController', ['$scope', '$rootScope', function ($scope, 
             name: 'Egress',
             data: egressByteData
         }];
-
+		
+		//Gabie
+		var multicastSeries = [{
+			name: 'Ingress',
+			data: ingressMulticastData
+		},{
+			name: 'Egress',
+			data: egressMulticastData
+		}];
+//Gabie Errors
+	/*	var errorsSeries = [{
+			name: 'Ingress Pause',
+			data: ingressPauseData
+		},{
+			name: 'Ingress Undersize',
+			data: ingressUndersizeData
+		},{
+			name: 'Ingress Fragments',
+			data: ingressFragmentsData
+		},{
+			name: 'Ingress Oversize',
+			data: ingressOversizeData
+		},{
+			name: 'Ingress Jabber',
+			data: ingressJabberData
+		},{
+			name: 'Ingress RxErr',
+			data: ingressRxErrData
+		},{
+			name: 'Ingress FcsErr',
+			data: ingresFcsErrData
+		},{ 
+			name: 'Egress Pause',
+			data: egressPauseData
+		},{
+			name: 'Egress Excessive',
+			data: egressExcessiveData
+		},{
+			name: 'Egress Collisions'
+			data: egressCollisionsData
+		},{
+			name: 'Egress Other',
+			data: egressOtherData
+		}];
+*/
 
         //does not separate presentation code from logic and data. need to write a directive for this
         var bytesChart =
@@ -498,7 +633,96 @@ myApp.controller('switchController', ['$scope', '$rootScope', function ($scope, 
 		    series: byteSeries
 		};
 
-        Highcharts.chart('bytesChart', bytesChart);
+        //Gabie
+		//Multicast Chart
+		var multicastChart =
+		{
+		    title:
+			{
+			    text: 'Multicast',
+			    x: -20 //center
+			},
+		    credits: {
+		        enabled: false
+		    },
+		    rangeSelector: {
+		        enabled: false //can probably use this in the future
+		    },
+		    xAxis:
+			{
+			    title:
+				{
+				    text: 'Elapsed Time (mins)'
+				},
+			    labels: {
+			        formatter: function () {
+			            return (this.value * 2);
+			        }
+			    }
+			},
+		    yAxis: {
+		        title:
+				{
+				    text: 'Multicast'
+				},
+		        plotLines: [{
+		            value: 0,
+		            width: 2,
+		            color: 'silver'
+		        }]
+		    },
+		    plotOptions: {
+		        series: {
+		            compare: 'value'
+		        }
+		    },
+		    tooltip: {
+		        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>'
+		    },
+		    series: multicastSeries
+		};
+		
+		//Errors Chart
+	/*	var errorsChart =
+		{
+			chart:{
+				type: 'column'
+			},
+			title: {
+				text: 'Errors'
+			},
+			xAxis:{
+				min: 0,
+				title: {
+					text:'Type of Error'
+					}
+			},
+			yAxis: {
+				min: 0,
+				title: {
+					text: 'Number of Errors'
+				}
+			},
+			tooltip: {
+			headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true	
+			},
+			plotOptions: {
+				column: {
+					pointPadding: 0.2,
+					borderWidth : 0
+				}
+			},
+			series: errorsSeries
+		};
+		*/
+		Highcharts.chart('bytesChart', bytesChart);
+		Highcharts.chart('multicastChart', multicastChart);
+		//Highcharts.chart('errorsChart', errorsChart);
     }
 
 
