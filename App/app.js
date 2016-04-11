@@ -14,7 +14,7 @@ myApp.run(function ($rootScope) {
     $rootScope.currentSwitchData = null;
 
 })
-
+//Gabie test comment
 myApp.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider
