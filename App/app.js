@@ -163,6 +163,10 @@ myApp.controller('ipController', ['$scope', '$rootScope', function ($scope, $roo
         //does not separate presentation code from logic and data. need to write a directive for this
         var bytesChart =
 		{
+			chart: {
+				type: 'line',
+				zoomType: 'x'
+            },
 		    title:
 			{
 			    text: 'Bytes',
@@ -210,6 +214,10 @@ myApp.controller('ipController', ['$scope', '$rootScope', function ($scope, $roo
 
         var packetsChart =
 		{
+			chart: {
+				type: 'line',
+				zoomType: 'x'
+            },
 		    title:
 			{
 			    text: 'Packets',
@@ -308,6 +316,10 @@ myApp.controller('ethernetController', ['$scope', '$rootScope', function ($scope
         //does not separate presentation code from logic and data. need to write a directive for this
         var receivedPacketsChart =
 		{
+			chart: {
+				type: 'line',
+				zoomType: 'x'
+            },
 		    title:
 			{
 			    text: 'Received Packets',
@@ -356,6 +368,10 @@ myApp.controller('ethernetController', ['$scope', '$rootScope', function ($scope
 		//does not separate presentation code from logic and data. need to write a directive for this
         var transmittedPacketsChart =
 		{
+			chart: {
+				type: 'line',
+				zoomType: 'x'
+            },
 		    title:
 			{
 			    text: 'Transmitted Packets',
@@ -588,6 +604,10 @@ myApp.controller('switchController', ['$scope', '$rootScope', function ($scope, 
         //does not separate presentation code from logic and data. need to write a directive for this
         var bytesChart =
 		{
+			chart: {
+				type: 'line',
+				zoomType: 'x'
+            },
 		    title:
 			{
 			    text: 'Bytes',
