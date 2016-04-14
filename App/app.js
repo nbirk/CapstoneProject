@@ -747,7 +747,11 @@ myApp.controller('switchController', ['$scope', '$rootScope', function ($scope, 
 		//Broadcast Chart
 		var broadcastChart =
 		{
-		    title:
+		    chart: {
+				type: 'line',
+				zoomType: 'x'
+            },
+			title:
 			{
 			    text: 'Broadcast',
 			    x: -20 //center
@@ -796,7 +800,11 @@ myApp.controller('switchController', ['$scope', '$rootScope', function ($scope, 
 		//Unicast Chart
 		var unicastChart =
 		{
-		    title:
+		    chart: {
+				type: 'line',
+				zoomType: 'x'
+            },
+			title:
 			{
 			    text: 'Unicast',
 			    x: -20 //center
